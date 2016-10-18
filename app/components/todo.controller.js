@@ -1,13 +1,12 @@
 (function(angular) {
 
     'use strict';
-    var module = angular.module('todoApp', ['ngMaterial']);
 
     angular.module('todoApp').controller('TodoController', TodoController);
 
     function TodoController(storageService, $mdDialog) {
         var vm = this;
-//commento
+
         vm.selectedItem = null;
         vm.items = storageService.get() || [];
 
