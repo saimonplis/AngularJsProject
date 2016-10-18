@@ -7,7 +7,7 @@
 
     function TodoController(storageService, $mdDialog) {
         var vm = this;
-
+//commento
         vm.selectedItem = null;
         vm.items = storageService.get() || [];
 

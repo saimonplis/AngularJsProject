@@ -3,9 +3,10 @@
 
     angular
         .module('todoApp')
-        .service('storageService', Service);
-
-    function Service($window) {
+        .service('storageService', storageService);
+    storageService.$inject=['$window'];
+    
+    function storageService($window) {
         this.set = set;
         this.get = get;
 
