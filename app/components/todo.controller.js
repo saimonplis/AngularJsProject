@@ -60,13 +60,16 @@
 
         //Add a new task to the items list 
         vm.addTask = function(ev) {
-            var confirm = $mdDialog.prompt()
+                var confirm = $mdDialog.prompt()
                 .title('Add new task')
                 .placeholder('Your task title...')
                 .ariaLabel('Your task title...')
                 .targetEvent(ev)
                 .ok('Add')
                 .cancel('Cancel');
+                
+                
+                
 
             $mdDialog.show(confirm).then(function(result) {
                 if (result)
