@@ -10,6 +10,7 @@
             lowpriority:0,
             highpriority:1
         };
+        vm.tags=[];
         vm.priorities=priorities;
        
         vm.selectedItem = null;
@@ -60,11 +61,12 @@
                 description: task.description,
                 done: task.done || false,
                 priority: task.priority || 0,
-                tag: task.tag || 'generic',
+                tag: task.tags || 'generic',
                 ework: task.ework ||'notspecified',
                 date: task.date || Date.now()
             });
             storageService.set(vm.items);
+            console.log(vm.items);
         };
 
 
@@ -82,32 +84,49 @@
               locals: {
                 items: vm.items,
                 priorities: vm.priorities,
+                tags:vm.tags,
               },
               controller: DialogController,
-              controllerAs: 'dctrl'
+              controllerAs: 'dctrl',
+
             }).then(function(task){
                 
                 vm.createItem(task);
+                vm.tags=[];
             });
         };
+    
 
-        function DialogController($mdDialog, items, priorities) {
+        function DialogController($mdDialog, items, priorities,tags) {
             var vm=this;
             vm.items = items;
             vm.priorities=priorities;
             
+            vm.tags=tags;
+            console.log(vm.tags);
+            vm.editableTags=angular.copy(vm.tags);
+            vm.removable=true;
+            vm.readonly=false;
             vm.closeDialog = function() {
               $mdDialog.cancel();
             }
-            vm.createTask=function(title,description,priority,date){  
+            vm.createTask=function(title,description,priority,date,tags){  
+                
                 var task={
                     title:title,
                     description:description,
                     priority: priority,
-                    date: date
+                    date: date,
+                    tags:tags,
+
                 };
                 
+                
                 $mdDialog.hide(task);
+            }
+            vm.newTag=function(chip){
+                vm.tags.push(chip);
+                console.log(vm.tags);
             }
         };  
     }      

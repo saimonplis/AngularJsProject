@@ -70,4 +70,5 @@
                 vm.selectedItem = null;
         }
     }
+    
 })();

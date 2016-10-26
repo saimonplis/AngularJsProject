@@ -2,14 +2,18 @@
              <md-dialog-content>
                <div layout="row">
                  <md-input-container>
+                   <div flex='40'>
                     <label>Title</label>
                     <input ng-model="dctrl.title" type="text">
+                   </div>
                   </md-input-container>
              
                    <md-input-container>
+                     <div flex='40'>
 
                     <label>Description</label>
                     <input ng-model="dctrl.description" type="text">
+                     </div>
                   </md-input-container>
                   <md-input-container>
                     <md-datepicker ng-model="dctrl.date" md-placeholder="Enter date"></md-datepicker>
@@ -26,6 +30,14 @@
                       </md-option>
                     </md-select>
                   </md-input-container>
+                  
+                    <md-chips ng-model="dctrl.editableTags" readonly="dctrl.readonly" md-removable="dctrl.removable"
+                      md-enable-chip-edit="true" md-transform-chip="dctrl.newTag($chip)"></md-chips>
+                        
+                       
+                     
+
+                  
                 </div layout>
             
 
@@ -37,7 +49,7 @@
                <md-button ng-click="dctrl.closeDialog()" class="md-primary">
                  Close Dialog
                </md-button>
-               <md-button ng-click="dctrl.createTask(dctrl.title,dctrl.description,dctrl.priority,dctrl.date)" class="md-primary">
+               <md-button ng-click="dctrl.createTask(dctrl.title,dctrl.description,dctrl.priority,dctrl.date,dctrl.editableTags)" class="md-primary">
                  Insert
                </md-button>
              </md-dialog-actions>

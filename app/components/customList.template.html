@@ -14,6 +14,7 @@
                 <p> {{item.date | date: "dd-MM-yyyy HH:mm"}}</p>
                 <p>{{item.description}}</p>
                 <p>{{item.priority}}</p>
+                <md-chips ng-model="item.tag" readonly="true"></md-chips>
                 
             </div>
             <md-checkbox ng-model="item.done" ng-change="customListCtrl.checkStateChanged()" class="md-primary md-align-top-right">
