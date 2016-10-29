@@ -11,7 +11,7 @@ md-tab-content.md-no-scroll,
 md-tab-content.md-no-scroll>div,
 .no-scroll {
     height: 100%;
-    overflow-y: hidden !important;
+    overflow-x: hidden !important; 
 }
 
 .scroll {

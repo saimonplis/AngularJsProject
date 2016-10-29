@@ -1,38 +1,54 @@
-<md-dialog aria-label="List dialog">
+<md-dialog aria-label="List dialog" style="max-width:500px">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Add new task</h2>
+		</div>
+	</md-toolbar>
+
 	<md-dialog-content>
-		<div layout="row">
+		<div layout="column" class="no-scroll">
+
 			<md-input-container>
-				<div flex='40'>
-					<label>Title</label>
-					<input ng-model="dctrl.title" type="text">
-				</div>
+				<span flex></span>
+				<label>Title</label>
+				<input ng-model="dctrl.title" type="text">
 			</md-input-container>
 
 			<md-input-container>
-				<div flex='40'>
-
-					<label>Description</label>
-					<input ng-model="dctrl.description" type="text">
-				</div>
-			</md-input-container>
-			<md-input-container>
-				<md-datepicker ng-model="dctrl.date" md-placeholder="Enter date"></md-datepicker>
-			</md-input-container>
-		</div layout>
-		<div layout="row">
-			<md-input-container>
-				<md-select ng-model="dctrl.priority" placeholder="Enter Priority">
-					<md-option>
-						{{dctrl.priorities.highpriority}}
-					</md-option>
-					<md-option>
-						{{dctrl.priorities.lowpriority}}
-					</md-option>
-				</md-select>
+				<span flex></span>
+				<label>Description</label>
+				<input ng-model="dctrl.description" type="text">
 			</md-input-container>
 
-			<md-chips ng-model="dctrl.editableTags" readonly="dctrl.readonly" md-removable="dctrl.removable" md-enable-chip-edit="true"
-				md-transform-chip="dctrl.newTag($chip)"></md-chips>
+			<div layout="row">
+				<md-input-container>
+					<span flex></span>
+					<md-datepicker ng-model="dctrl.date" md-placeholder="Enter date"></md-datepicker>
+				</md-input-container>
+
+        <!-- DA INSERIRE SPAZIO-->
+
+
+				<span flex></span>
+				<md-input-container>
+					<md-select ng-model="dctrl.priority" placeholder="Enter Priority">
+						<md-option>
+							{{dctrl.priorities.highpriority}}
+						</md-option>
+						<md-option>
+							{{dctrl.priorities.lowpriority}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+
+			</div>
+
+			<md-input-container>
+				<label>Tags</label>
+				<md-chips ng-model="dctrl.editableTags" readonly="dctrl.readonly" md-removable="dctrl.removable" md-enable-chip-edit="true"
+					md-transform-chip="dctrl.newTag($chip)"></md-chips>
+			</md-input-container>
+
 		</div layout>
 	</md-dialog-content>
 	<md-dialog-actions>
