@@ -1,7 +1,7 @@
  <md-content class="md-padding scroll tab-content">
     <md-list>
         <md-list-item class="md-2-line"
-                      ng-repeat="item in customListCtrl.items | filter: customListCtrl.filterFunction"
+                      ng-repeat="item in customListCtrl.items | filter:customListCtrl.filterFunction |filter:customListCtrl.filterView"
                       ng-class="customListCtrl.selectedItem == item ? 'selected': ''" 
                       ng-click="customListCtrl.toggleSelection(item)">
             <md-button ng-click="customListCtrl.changePriority(item)" class="md-icon-button" aria-label="Priority">

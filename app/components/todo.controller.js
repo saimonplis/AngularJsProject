@@ -45,7 +45,7 @@
                         var index = vm.items.indexOf(vm.selectedItem);
                         if (index != -1) {
                             vm.selectedItem = null;
-                            vm.items.splice(index, 1);
+                            vm.items.splice(index, 2);
                             storageService.set(vm.items);
                         }
                     }
