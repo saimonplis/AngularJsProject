@@ -2,75 +2,115 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Task App</title>
+	<meta charset="UTF-8">
+	<title>Task App</title>
 
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- App Styles -->
-    <link rel="stylesheet" href="styles/style.css">
+	<!-- Angular Material style sheet -->
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- App Styles -->
+	<link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="ng-animation.css">
+	<link rel="stylesheet" href="verticalTimeline.css">
 
-    <!-- Angular Material requires Angular.js Libraries -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-touch.js"></script>
 
 
-    <!-- Angular Material Library -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<!-- Angular Material Library -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 
-    <!-- Code Behind -->
-    <script src="app/components/todoApp.module.js"></script>
-    <script src="http://localhost/lesson4/app/components/todo.controller.js"></script>
+	<!-- Code Behind -->
+	<!--if needed:-->
+	<!--http://localhost/lesson4-->
+	<script src="app/components/todoApp.module.js"></script>
+	<script src="app/components/todo.controller.js"></script>
+	<script src="app/components/customList.directive.js"></script>
+	<script src="app/storageService.js"></script>
 
-    <script src="http://localhost/lesson4/app/components/customList.directive.js"></script>
-    <script src="http://localhost/lesson4/app/storageService.js"></script>
-  
 
 </head>
 
 <body ng-app="todoApp" class="no-scroll">
-    <div ng-controller="TodoController as ctrl" class="no-scroll">
-        <div layout="column" class="no-scroll">
-            <md-toolbar class="md-whiteframe-3dp">
-                <div class="md-toolbar-tools">
-                    <h2>
-                        <span>Task App</span>
-                    </h2>
-                    <div flex="50"></div>
-                    
-                    <md-input-container>
-                        <label>Search</label>
-                        <input ng-model="ctrl.searchBox" class="md-block"  style="background-color:white" type="text">
-                    </md-input-container>
-                    
-                    <span flex></span>
-                    <md-button  ng-click="ctrl.deleteItem()" class="md-icon-button" aria-label="Delete">
-                        <md-icon> delete </md-icon>
-                    </md-button>
-                </div>
-            </md-toolbar>
-            <md-content class="no-scroll">
-                <md-tabs md-dynamic-height md-border-bottom class="no-scroll">
-                    <md-tab label="Todo">
-                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.notDone" filter-view="ctrl.searchBox"></custom-list>
-                    </md-tab>
-                    <md-tab label="Done">
-                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.done" filter-view="ctrl.searchBox"></custom-list>
-                    </md-tab>
-                    <md-tab label="All">
-                        <custom-list items="ctrl.items" selected-item="ctrl.selectedItem" filter-function="ctrl.all" filter-view="ctrl.searchBox"></custom-list>
-                    </md-tab>
-                </md-tabs>
-                <md-button class="md-fab md-primary add-button" aria-label="Add Todo" ng-click="ctrl.addTask($event)">
-                    
-                    <md-icon>add</md-icon>
-                </md-button>
-            </md-content>
+	<div ng-controller="TodoController as ctrl" class="no-scroll">
+		<div layout="column" class="no-scroll">
+			<md-toolbar class="md-whiteframe-3dp">
+				<div class="md-toolbar-tools">
+					<h2>
+						<md-icon> note </md-icon>
+						<span>Note to Self</span>
+					</h2>
 
-        </div>
+					<div flex="50"></div>
+
+					<div>
+                        <md-icon> search </md-icon>
+						<input ng-model="ctrl.searchBox" class="md-block" style="background-color:white" type="text">
+					</div>
+
+					<span flex></span>
+					<md-button ng-click="showDetails = ! showDetails" class="md-icon-button" aria-label="More..">
+						<md-icon> more_vert </md-icon>
+					</md-button>
+
+					<md-button ng-disabled="ctrl.selectedItem == null" ng-click="ctrl.deleteItem()" class="md-icon-button" aria-label="Delete">
+						<md-icon> delete </md-icon>
+					</md-button>
+				</div>
+			</md-toolbar>
+
+			<div class='animate-hide' ng-hide="!showDetails" align="right">
+				<span style="color:white" flex>View: </span>
+				<md-button ng-disabled="!listOrGrid" ng-click="listOrGrid=!listOrGrid" class="md-icon-button" aria-label="viewGrid">
+					<md-icon> view_list </md-icon>
+				</md-button>
+				<md-button ng-disabled="listOrGrid" ng-click="listOrGrid=!listOrGrid" class="md-icon-button" aria-label="viewList">
+					<md-icon> timeline </md-icon>
+				</md-button>
+			</div>
+
+			<md-content class="no-scroll">
+				<md-tabs md-dynamic-height md-border-bottom class="no-scroll">
+					<md-tab label="Todo">
+						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"
+							ng-if="!listOrGrid" filter-function="ctrl.notDone" filter-view="ctrl.searchBox"></custom-list>
+						<div ng-if="listOrGrid">
+							<ul class="timeline">
+								<!-- Item -->
+								<li ng-repeat="itemTmp in ctrl.items" filter-view="ctrl.searchBox">
+									<div class="direction-r" ng-click=>
+										<div class="flag-wrapper">
+											<span class="flag">{{itemTmp.title}}</span>
+											<span class="time-wrapper"><span class="time">{{itemTmp.date | date}}</span></span>
+										</div>
+										<div class="desc">Priority: {{itemTmp.done}}</div>
+										<md-button ng-click="ctrl.indice=$index; ctrl.deleteSingleTask()" class="md-icon-button" aria-label="Delete">
+											<md-icon> delete </md-icon>
+										</md-button>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</md-tab>
+					<md-tab label="Done">
+						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"
+							filter-function="ctrl.done" filter-view="ctrl.searchBox"></custom-list>
+					</md-tab>
+					<md-tab label="All">
+						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"
+							filter-function="ctrl.all" filter-view="ctrl.searchBox"></custom-list>
+					</md-tab>
+				</md-tabs>
+				<md-button class="md-fab md-primary add-button" aria-label="Add Todo" ng-click="ctrl.addTask($event)">
+					<md-icon>add</md-icon>
+				</md-button>
+			</md-content>
+
+		</div>
 </body>
 
 </html>

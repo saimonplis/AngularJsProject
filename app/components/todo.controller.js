@@ -2,7 +2,7 @@
 
     'use strict';
 
-    angular.module('todoApp').controller('TodoController', TodoController);
+    angular.module('todoApp', ['ngMaterial', 'ngAnimate', 'ngTouch']).controller('TodoController', TodoController);
     TodoController.$inject = ['storageService', '$mdDialog'];
     function TodoController(storageService, $mdDialog) {
         var vm = this;
@@ -49,8 +49,29 @@
                             storageService.set(vm.items);
                         }
                     }
+                    vm.selectedItem = null;
                 });
             }
+        }
+
+        vm.deleteSingleTask = function (ev) {
+                var confirm = $mdDialog.confirm()
+
+                    .textContent('Are you sure to delete?')
+                    .ariaLabel('Delete task')
+                    .targetEvent(ev)
+                    .ok('Yes')
+                    .cancel('No');
+
+                $mdDialog.show(confirm).then(function (result) {
+                    if (result) {
+                        if (vm.indice != -1) {
+                            vm.items.splice(vm.indice, 1);
+                            storageService.set(vm.items);
+                        }
+                    }
+                    vm.selectedItem = null;
+                });
         }
 
         //Creates a new item with the given parameters
