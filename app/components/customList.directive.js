@@ -13,7 +13,9 @@
                 selectedItem: '=',
                 filterFunction: '=',
                 filterView: '=',
-                itemSelected: '='
+                itemSelected: '=',
+                emptyList: '='
+                
             },
             controller: customListController,
             controllerAs: 'customListCtrl',
@@ -55,13 +57,22 @@
             else
                 vm.selectedItem = null;
                 */
+          
             var index = vm.itemSelected.indexOf(item);
             if(index<0){
                 vm.itemSelected.push(item);
             }else{
                 vm.itemSelected.splice(index, 1);
             }
+              if(vm.itemSelected.length==0){
+                vm.emptyList=true;
+            }
+            else if(vm.itemSelected.length>0){
+                vm.emptyList=false;
+            }
+            console.log(vm.emptyList);
             console.log(vm.itemSelected);
+            console.log(vm.itemSelected.length);
         }
         function iteminArray(item){
             var indice = vm.itemSelected.indexOf(item);

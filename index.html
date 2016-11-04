@@ -58,7 +58,7 @@
 						<md-icon> more_vert </md-icon>
 					</md-button>
 
-					<md-button ng-disabled="ctrl.selectedItem == null" ng-click="ctrl.deleteItem()" class="md-icon-button" aria-label="Delete">
+					<md-button ng-disabled="ctrl.empty" ng-click="ctrl.deleteItem()" class="md-icon-button" aria-label="Delete">
 						<md-icon> delete </md-icon>
 					</md-button>
 				</div>
@@ -78,12 +78,14 @@
 				<md-tabs md-dynamic-height md-border-bottom class="no-scroll">
 					<md-tab label="Todo">
 						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"
-							ng-if="!listOrGrid" filter-function="ctrl.notDone" filter-view="ctrl.searchBox" item-selected="ctrl.itemSelected"></custom-list>
-						<custom-timeline ng-if="listOrGrid"  items="ctrl.items" delete-single-task="ctrl.deleteSingleTask" selected-item="ctrl.selectedItem" filter-function="ctrl.notDone" filter-view="ctrl.searchBox"></custom-timeline>
+							ng-if="!listOrGrid" filter-function="ctrl.notDone" filter-view="ctrl.searchBox"
+							 item-selected="ctrl.itemSelected" empty-list="ctrl.empty"></custom-list>
+						<custom-timeline ng-if="listOrGrid"  items="ctrl.items" delete-single-task="ctrl.deleteSingleTask" selected-item="ctrl.selectedItem" 
+						filter-function="ctrl.notDone" filter-view="ctrl.searchBox" ></custom-timeline>
 					</md-tab>
 					<md-tab label="Done">
 						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"
-							filter-function="ctrl.done" filter-view="ctrl.searchBox" item-selected="ctrl.itemSelected"></custom-list>
+							filter-function="ctrl.done" filter-view="ctrl.searchBox" item-selected="ctrl.itemSelected" empty-list="ctrl.empty"></custom-list>
 					</md-tab>
 					<md-tab label="All">
 						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"

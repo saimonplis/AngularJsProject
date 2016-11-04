@@ -12,9 +12,8 @@
         };
         vm.tags = [];
         vm.priorities = priorities;
-
+        vm.empty= true;
         vm.itemSelected = [];
-        
         vm.selectedItem = null;
         vm.items = storageService.get() || [];
 
@@ -91,6 +90,8 @@
             storageService.set(vm.items);
             console.log(vm.items);
         };
+
+     
 
 
         //Add a new task to the items list 
