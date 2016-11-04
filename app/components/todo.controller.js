@@ -33,16 +33,16 @@
         //Delete the current selected item, if any
         vm.deleteItem = function (ev) {
 
-            if (vm.selectedItem != null) {
+            if (vm.itemSelected.length != 0) {
                 var confirm = $mdDialog.confirm()
-                    .textContent('The task "' + vm.selectedItem.title + '" will be deleted. Are you sure?')
+                    .textContent('The task   will be deleted. Are you sure?')
                     .ariaLabel('Delete task')
                     .targetEvent(ev)
                     .ok('Yes')
                     .cancel('No');
 
                 $mdDialog.show(confirm).then(function (result) {
-                    if (result) {
+                  /*  if (result) {
                         var index = vm.items.indexOf(vm.selectedItem);
                         if (index != -1) {
                             vm.selectedItem = null;
@@ -50,7 +50,25 @@
                             storageService.set(vm.items);
                         }
                     }
-                    vm.selectedItem = null;
+                    vm.selectedItem = null;*/
+                    var i;
+                    var indici=[];
+                    console.log(vm.itemSelected.length);
+                    for(i=0;i<vm.itemSelected.length;i++){
+                        var indice=vm.items.indexOf(vm.itemSelected[i]);
+                        
+                        console.log(vm.itemSelected[i]);
+                        if(indice>=0){
+                            
+                            vm.items.splice(indice,1);
+                          
+                            console.log(vm.itemSelected);
+                        }
+
+                    }
+                vm.itemSelected.splice(0,vm.itemSelected.length);//svuoto arrayselezionati
+                storageService.set(vm.items);
+                    
                 });
             }
         }
