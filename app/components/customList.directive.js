@@ -30,6 +30,7 @@
         vm.changePriority = changePriority;
         vm.checkStateChanged = checkStateChanged;
         vm.toggleSelection = toggleSelection;
+        vm.iteminArray = iteminArray;
         //Changes the priority of the given item
         function changePriority(item) {
             if (item.priority <= 0)
@@ -60,6 +61,14 @@
             }else{
                 vm.itemSelected.splice(index, 1);
             }
+            console.log(vm.itemSelected);
+        }
+        function iteminArray(item){
+            var indice = vm.itemSelected.indexOf(item);
+            if(indice<0){
+                return false;
+            }
+            else return true;
         }
         
     }

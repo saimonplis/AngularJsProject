@@ -2,7 +2,8 @@
     <md-list>
         <md-list-item class="md-2-line"
                       ng-repeat="item in customListCtrl.items | filter:customListCtrl.filterFunction |filter:customListCtrl.filterView as result"
-                      ng-class="customListCtrl.selectedItem == item ? 'selected': ''" 
+                      
+                      ng-class="customListCtrl.iteminArray(item) ? 'selected': ''" 
                       ng-click="customListCtrl.toggleSelection(item)">
             <md-button ng-click="customListCtrl.changePriority(item)" class="md-icon-button" aria-label="Priority">
                 <md-icon style="color: green" ng-if="item.priority == -1">low_priority</md-icon>
