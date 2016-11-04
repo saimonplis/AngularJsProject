@@ -13,6 +13,8 @@
         vm.tags = [];
         vm.priorities = priorities;
 
+        vm.itemSelected = [];
+        
         vm.selectedItem = null;
         vm.items = storageService.get() || [];
 

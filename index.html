@@ -10,8 +10,8 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- App Styles -->
 	<link rel="stylesheet" href="styles/style.css">
-	<link rel="stylesheet" href="ng-animation.css">
-	<link rel="stylesheet" href="verticalTimeline.css">
+	<link rel="stylesheet" href="styles/ng-animation.css">
+	<link rel="stylesheet" href="styles/verticalTimeline.css">
 
 	<!-- Angular Material requires Angular.js Libraries -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -30,6 +30,7 @@
 	<script src="app/components/todoApp.module.js"></script>
 	<script src="app/components/todo.controller.js"></script>
 	<script src="app/components/customList.directive.js"></script>
+	<script src="app/components/verticalTimeline.directive.js"></script>
 	<script src="app/storageService.js"></script>
 
 
@@ -77,24 +78,8 @@
 				<md-tabs md-dynamic-height md-border-bottom class="no-scroll">
 					<md-tab label="Todo">
 						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"
-							ng-if="!listOrGrid" filter-function="ctrl.notDone" filter-view="ctrl.searchBox"></custom-list>
-						<div ng-if="listOrGrid">
-							<ul class="timeline">
-								<!-- Item -->
-								<li ng-repeat="itemTmp in ctrl.items" filter-view="ctrl.searchBox">
-									<div class="direction-r" ng-click=>
-										<div class="flag-wrapper">
-											<span class="flag">{{itemTmp.title}}</span>
-											<span class="time-wrapper"><span class="time">{{itemTmp.date | date}}</span></span>
-										</div>
-										<div class="desc">Priority: {{itemTmp.done}}</div>
-										<md-button ng-click="ctrl.indice=$index; ctrl.deleteSingleTask()" class="md-icon-button" aria-label="Delete">
-											<md-icon> delete </md-icon>
-										</md-button>
-									</div>
-								</li>
-							</ul>
-						</div>
+							ng-if="!listOrGrid" filter-function="ctrl.notDone" filter-view="ctrl.searchBox" item-selected="ctrl.itemSelected"></custom-list>
+						<custom-timeline ng-if="listOrGrid"  items="ctrl.items" delete-single-task="ctrl.deleteSingleTask" selected-item="ctrl.selectedItem" filter-function="ctrl.notDone" filter-view="ctrl.searchBox"></custom-timeline>
 					</md-tab>
 					<md-tab label="Done">
 						<custom-list items="ctrl.items" selected-item="ctrl.selectedItem" ng-swipe-right="ctrl.selectedItem=selected-item; ctrl.deleteItem()"

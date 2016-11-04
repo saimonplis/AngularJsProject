@@ -1,0 +1,19 @@
+<md-content class="timeline">
+    <ul>
+        <!-- Items -->
+        <li style="list-style:none" 
+        ng-repeat="itemTmp in customTimelineCtrl.items  | filter:customTimelineCtrl.filterFunction |filter:customTimelineCtrl.filterView">
+            <div class="direction-r" ng-click=>
+                <div class="flag-wrapper">
+                    <span class="flag">{{itemTmp.title}}</span>
+                    <span class="time-wrapper"><span class="time">{{itemTmp.date | date}}</span></span>
+                </div>
+                <div class="desc">Priority: {{itemTmp.done}}</div>
+                <md-button ng-click="customTimelineCtrl.indice=$index; customTimelineCtrl.deleteSingleTask()" class="md-icon-button" aria-label="Delete">
+                    <md-icon> delete </md-icon>
+                </md-button>
+            </div>
+        </li>
+    </ul>
+
+</md-content>

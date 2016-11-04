@@ -3,7 +3,7 @@
 
     angular
         .module('todoApp')
-        .directive('customList', directive);
+        .directive('customTimeline', directive);
 
     function directive() {
         return {
@@ -13,20 +13,23 @@
                 selectedItem: '=',
                 filterFunction: '=',
                 filterView: '=',
-                itemSelected: '='
+                deleteSingleTask: '&' 
             },
-            controller: customListController,
-            controllerAs: 'customListCtrl',
+            controller: customTimelineController,
+            controllerAs: 'customTimelineCtrl',
             transclude: true,
             restrict: 'E',
-            templateUrl: 'app/components/customList.template.html'
+            templateUrl: 'app/components/verticalTimeline.template.html'
 
         };
     }
-    customListController.$inject = ['storageService'];
+    
+    customTimelineController.$inject = ['storageService'];
     //Directive controller
-    function customListController(storageService) {
+    
+    function customTimelineController(storageService) {
         var vm = this;
+        vm.indice = null;
         vm.changePriority = changePriority;
         vm.checkStateChanged = checkStateChanged;
         vm.toggleSelection = toggleSelection;
@@ -46,22 +49,12 @@
         }
 
         //Select or deselect the given item
-        
         function toggleSelection(item) {
-            /*
             if (vm.selectedItem == null || vm.selectedItem != item)
                 vm.selectedItem = item;
             else
                 vm.selectedItem = null;
-                */
-            var index = vm.itemSelected.indexOf(item);
-            if(index<0){
-                vm.itemSelected.push(item);
-            }else{
-                vm.itemSelected.splice(index, 1);
-            }
         }
-        
     }
-
+    
 })();
