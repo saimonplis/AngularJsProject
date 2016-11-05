@@ -1,19 +1,25 @@
 <md-content class="timeline">
-    <ul>
-        <!-- Items -->
-        <li style="list-style:none" 
-        ng-repeat="itemTmp in customTimelineCtrl.items  | filter:customTimelineCtrl.filterFunction |filter:customTimelineCtrl.filterView">
-            <div class="direction-r" ng-click=>
-                <div class="flag-wrapper">
-                    <span class="flag">{{itemTmp.title}}</span>
-                    <span class="time-wrapper"><span class="time">{{itemTmp.date | date}}</span></span>
-                </div>
-                <div class="desc">Priority: {{itemTmp.done}}</div>
-                <md-button ng-click="customTimelineCtrl.indice=$index; customTimelineCtrl.deleteSingleTask()" class="md-icon-button" aria-label="Delete">
-                    <md-icon> delete </md-icon>
-                </md-button>
-            </div>
-        </li>
-    </ul>
+	<md-list>
+		<li class="md-2-line" style="list-style:none" ng-class="customTimelineCtrl.iteminArray(itemTmp) ? 'selected': ''" ng-click="customTimelineCtrl.toggleSelection(itemTmp)"
+			ng-repeat="itemTmp in customTimelineCtrl.items  | filter:customTimelineCtrl.filterFunction | filter:customTimelineCtrl.filterView as result">
+			<div class="direction-r">
+				<div class="flag-wrapper">
+					<span class="flag">{{itemTmp.title}}</span>
+					<span class="time-wrapper"><span class="time">{{itemTmp.date | date: "dd-MM-yyyy HH:mm"}}</span>
+					</span>
+				</div>
+				<div class="desc">{{itemTmp.description}}</div>
+				<div class="desc">Priority: {{itemTmp.priority}}</div>
+				<div class="desc">Done:
+					<md-checkbox ng-model="itemTmp.done" ng-change="customTimelineCtrl.checkStateChanged()" class="md-primary md-align-top-right">
+					</md-checkbox>
+				</div>
+
+			</div>
+		</li>
+		<span class="no-result" ng-if="result==0">
+            <strong>Sorry, no tasks found!</strong>
+        </span>
+	</md-list>
 
 </md-content>

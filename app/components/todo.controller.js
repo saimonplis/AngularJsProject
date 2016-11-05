@@ -12,7 +12,7 @@
         };
         vm.tags = [];
         vm.priorities = priorities;
-        vm.empty= true;
+        vm.empty = true;
         vm.itemSelected = [];
         vm.selectedItem = null;
         vm.items = storageService.get() || [];
@@ -42,33 +42,21 @@
                     .cancel('No');
 
                 $mdDialog.show(confirm).then(function (result) {
-                  /*  if (result) {
-                        var index = vm.items.indexOf(vm.selectedItem);
-                        if (index != -1) {
-                            vm.selectedItem = null;
-                            vm.items.splice(index, 2);
-                            storageService.set(vm.items);
-                        }
-                    }
-                    vm.selectedItem = null;*/
                     var i;
-                    var indici=[];
-                    console.log(vm.itemSelected.length);
-                    for(i=0;i<vm.itemSelected.length;i++){
-                        var indice=vm.items.indexOf(vm.itemSelected[i]);
-                        
-                        console.log(vm.itemSelected[i]);
-                        if(indice>=0){
-                            
-                            vm.items.splice(indice,1);
-                          
-                            console.log(vm.itemSelected);
-                        }
 
+                    console.log(vm.itemSelected.length);
+                    for (i = 0; i < vm.itemSelected.length; i++) {
+                        var indice = vm.items.indexOf(vm.itemSelected[i]);
+
+                        console.log(vm.itemSelected[i]);
+                        if (indice >= 0) {
+                            vm.items.splice(indice, 1);
+                        }
                     }
-                vm.itemSelected.splice(0,vm.itemSelected.length);//svuoto arrayselezionati
-                storageService.set(vm.items);
-                    
+                    vm.itemSelected.splice(0, vm.itemSelected.length);//svuoto array item selezionati
+                    vm.empty=true; 
+                    storageService.set(vm.items);
+
                 });
             }
         }
@@ -102,21 +90,17 @@
                 done: task.done || false,
                 priority: task.priority || 0,
                 tag: task.tags || 'generic',
-                ework: task.ework || 'notspecified',
                 date: task.date || Date.now()
             });
             storageService.set(vm.items);
             console.log(vm.items);
         };
 
-     
-
-
         //Add a new task to the items list 
         vm.addTask = function (ev) {
             showDialog(ev);
         };
-
+        //custom dialog
         function showDialog($event) {
             var parentEl = angular.element(document.body);
             $mdDialog.show({
@@ -139,17 +123,16 @@
             });
         };
 
-
+        //custom dialog controller
         function DialogController($mdDialog, items, priorities, tags) {
             var vm = this;
             vm.items = items;
             vm.priorities = priorities;
-
             vm.tags = tags;
             console.log(vm.tags);
             vm.editableTags = angular.copy(vm.tags);
             vm.removable = true;
-            vm.readonly = false;
+            vm.readonly = false; //attributes for chips
             vm.closeDialog = function () {
                 $mdDialog.cancel();
             }
@@ -167,9 +150,9 @@
 
                 $mdDialog.hide(task);
             }
-            vm.newTag = function (chip) {
+            vm.newTag = function (chip) { //add new chip
                 vm.tags.push(chip);
-                console.log(vm.tags);
+
             }
         };
     }

@@ -15,11 +15,10 @@
                 filterView: '=',
                 itemSelected: '=',
                 emptyList: '='
-                
+
             },
             controller: customListController,
             controllerAs: 'customListCtrl',
-            transclude: true,
             restrict: 'E',
             templateUrl: 'app/components/customList.template.html'
 
@@ -49,39 +48,30 @@
         }
 
         //Select or deselect the given item
-        
+
         function toggleSelection(item) {
-            /*
-            if (vm.selectedItem == null || vm.selectedItem != item)
-                vm.selectedItem = item;
-            else
-                vm.selectedItem = null;
-                */
-          
             var index = vm.itemSelected.indexOf(item);
-            if(index<0){
+            if (index < 0) {
                 vm.itemSelected.push(item);
-            }else{
+            } else {
                 vm.itemSelected.splice(index, 1);
             }
-              if(vm.itemSelected.length==0){
-                vm.emptyList=true;
+            if (vm.itemSelected.length == 0) {
+                vm.emptyList = true;
             }
-            else if(vm.itemSelected.length>0){
-                vm.emptyList=false;
+            else if (vm.itemSelected.length > 0) {
+                vm.emptyList = false;
             }
-            console.log(vm.emptyList);
-            console.log(vm.itemSelected);
-            console.log(vm.itemSelected.length);
+    
         }
-        function iteminArray(item){
+        function iteminArray(item) {
             var indice = vm.itemSelected.indexOf(item);
-            if(indice<0){
+            if (indice < 0) {
                 return false;
             }
             else return true;
         }
-        
+
     }
 
 })();
