@@ -1,4 +1,4 @@
-# lesson4
+# AngularJs Project
 
 Project about our learnt knowledge  in AngularJs course taught by Bax Energy at University of Catania .
 This is a simple app to take notes. 
